@@ -1,4 +1,10 @@
 <div class="weather-item card">
-    <div class="city-name">{{ data.city }}</div>
-    <div class="temperature">{{ data.temperature | temperature }}</div>
+    <div class="city-details">
+        <div class="city-name">{{ data.city }}</div>
+        <div class="temperature">{{ data.temperature | temperature }}</div>
+    </div>
+    <div class="weather-details">
+        <weather-icon></weather-icon>
+        <span class="weather-desc">clear sky</span>
+    </div>
 </div>

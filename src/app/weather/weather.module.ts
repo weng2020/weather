@@ -5,6 +5,7 @@ import { NextBtnDirective } from "./directives/next-btn.directive";
 import { PrevButtonDirective } from "./directives/prev-btn.directive";
 import { TemperaturePipe } from "./pipes/temperature.pipe";
 import { WeatherHttpInterceptpor } from "./utils/http-interceptor";
+import { WeatherIconComponent } from "./weather-icon/weather-icon.component";
 import { WeatherItemComponent } from "./weather-item/weather-item.component";
 import { WeatherComponent } from "./weather.component";
 
@@ -12,13 +13,15 @@ import { WeatherComponent } from "./weather.component";
     declarations: [
         WeatherComponent,
         WeatherItemComponent,
+        WeatherIconComponent,
         PrevButtonDirective,
         NextBtnDirective,
         TemperaturePipe
     ],
     exports: [
         WeatherComponent,
-        WeatherItemComponent
+        WeatherItemComponent,
+        WeatherIconComponent
     ],
     imports: [
         CommonModule,
