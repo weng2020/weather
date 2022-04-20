@@ -18,12 +18,14 @@ export class WeatherComponent implements OnInit {
 
   weathers$: Observable<Weather[]>;
   selected$: Observable<Weather>;
+  loading$: Observable<boolean>;
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.weathers$ =this.weatherService.weathers$;
     this.selected$ = this.weatherService.selected$;
+    this.loading$ = this.weatherService.loading$;
     // If service is available
     // if( this.service ){
     //   const keys = Object.keys(this.config.data);

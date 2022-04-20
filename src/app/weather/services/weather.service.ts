@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { weatherAppConfig } from "../config";
 import { BehaviorSubject, forkJoin, Observable, Subject } from "rxjs";
 import { IWeatherService } from "../models/weather-service.model";
-import { catchError, exhaustMap, finalize, tap } from "rxjs/operators";
+import { catchError, delay, exhaustMap, finalize, tap } from "rxjs/operators";
 
 @Injectable()
 export class WeatherService{
@@ -47,6 +47,7 @@ export class WeatherService{
                 this.loading$.next(true);
                 return forkJoin(data.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)))
                     .pipe(
+                        delay(3000),
                         tap(weathers => this.selected$.next(weathers[0] as Weather)),
                         finalize(() => this.loading$.next(false))
                     );
