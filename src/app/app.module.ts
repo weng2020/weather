@@ -25,10 +25,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       provide: HTTP_INTERCEPTORS,
       useClass: FHttpInterceptor,
       multi: true
-    },
-    {
-      provide: WEATHER_SERVICE,
-      useClass: WeatherService
     }
   ],
   bootstrap: [AppComponent]

@@ -3,9 +3,12 @@ interface WParams {
   }
 
 export interface WeatherConfig{
-    apiKey: string;
-    url: string;
-    data?: WParams;   
+    apiKey?: string;
+    url?: string;
+    data?: WParams; 
+    // endpoints needed to check in the httpinterceptor to determine
+    //  if the httprequest is requesting from a weather api
+    allowedEndpoints?: string[];  
 }
 
 export class Weather{

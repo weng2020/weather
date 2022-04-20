@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { data } from '../services/weather.mock-data';
 import { IWeatherService } from './models/weather-service.model';
 import { Weather, WeatherConfig } from './models/weather.model';
+import { WeatherService } from './services/weather.service';
 
 export const WEATHER_CONFIG = new InjectionToken('weatherConfig');
 export const WEATHER_SERVICE = new InjectionToken<IWeatherService<Weather>>('weatherService');
@@ -16,27 +17,30 @@ export const WEATHER_SERVICE = new InjectionToken<IWeatherService<Weather>>('wea
 export class WeatherComponent implements OnInit {
 
   weathers$: Observable<Weather[]>;
-  selectedCity: Weather;
+  selected$: Observable<Weather>;
 
-  constructor(@Inject(WEATHER_CONFIG) private config: WeatherConfig,
-              @Optional() @Inject(WEATHER_SERVICE) private service: IWeatherService<Weather>) { }
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-
-    if( !this.service ){
-      console.error('No service');
-      return;
-    }
-
-    const weatherParams = Object.keys(this.config.data).map(key => ({ name: key, ...this.config.data[key] }));
+    this.weathers$ =this.weatherService.weathers$;
+    this.selected$ = this.weatherService.selected$;
+    // If service is available
+    // if( this.service ){
+    //   const keys = Object.keys(this.config.data);
+     
+    //   if( keys.length > 0 ){
+    //     const weatherParams = keys.map(key => ({ name: key, ...this.config.data[key] }));
     
-    this.weathers$ = forkJoin(weatherParams.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)))
-      .pipe(tap(w => {
-        this.selectedCity = w[0];
-        console.log(w)
-      }));
+    //     this.weathers$ = forkJoin(weatherParams.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)))
+    //       .pipe(
+    //         tap(w => {
+    //           this.selectedCity = w[0];
+    //         console.log(w)
+    //       }));
+    //   }
+    // }
 
-    // Sometimes the request limit is maxed so we use mock data
+    // Sometimes the request limit is maxed out so we use mock data
     // this.weathers$ = of(data);
     // this.weathers$.subscribe(res => {
     //   console.log(res)
@@ -46,7 +50,7 @@ export class WeatherComponent implements OnInit {
   }
 
   setSelected(weather: Weather): void{
-    this.selectedCity = weather;
+    this.weatherService.setSelected(weather);
   }
 
 }

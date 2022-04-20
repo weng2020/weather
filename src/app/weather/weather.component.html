@@ -5,11 +5,11 @@
         <button class="next-btn " nextBtn>></button>
     </div>
     
-    <div class="weather-forecast card">
+    <div class="weather-forecast card" *ngIf="selected$ | async as selectedCity">
         <div class="weather-details">
-            <span class="date">{{ selectedCity.dt | date }}</span>
+            <span class="date">{{ selectedCity?.dt | date }}</span>
             <div class="city-name">{{ selectedCity?.city }}</div>
-            <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
+            <span class="pop">Chance of rain {{ selectedCity?.pop | percent }}</span>
             <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
             <weather-icon [height]="200" [width]="200" [icon]="selectedCity?.weather.icon"></weather-icon>
             <div class="weather-desc">
@@ -25,12 +25,12 @@
         </div>
         <div class="daily-forecast" *ngIf="selectedCity">
             <div class="day-forecast" *ngFor="let forecast of selectedCity.daily">
-                <div class="day">{{ forecast.dt | date: 'EEEE' }}</div>
-                <div class="date">{{ forecast.dt | date: 'MMMM dd' }}</div>
-                <weather-icon [height]="150" [width]="150" [icon]="forecast.weather.icon"></weather-icon>
+                <div class="day">{{ forecast?.dt | date: 'EEEE' }}</div>
+                <div class="date">{{ forecast?.dt | date: 'MMMM dd' }}</div>
+                <weather-icon [height]="150" [width]="150" [icon]="forecast?.weather.icon"></weather-icon>
                 <div class="weather-desc">{{ forecast?.weather.desc }}</div>
                 <div class="temperature">{{ forecast?.temperature | temperature }}</div>
-                <span class="pop">Chance of rain {{ forecast.pop | percent }}</span>
+                <span class="pop">Chance of rain {{ forecast?.pop | percent }}</span>
             </div>
         </div>
     </div>

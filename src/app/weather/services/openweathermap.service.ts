@@ -1,15 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { IWeatherService } from "../weather/models/weather-service.model";
-import { Weather } from "../weather/models/weather.model";
 import { map } from "rxjs/operators";
-import { WeatherUtil } from "../weather/utils/weather-util";
+import { IWeatherService } from "../models/weather-service.model";
+import { Weather } from "../models/weather.model";
+import { WeatherUtil } from "../utils/weather-util";
 
 @Injectable()
-export class WeatherService implements IWeatherService<Weather>{
+export class OpenWeatherMapService implements IWeatherService<Weather>{
 
-    /**
+   /**
      * constructor
      * @param {HttpClient} http 
      */
@@ -18,7 +18,6 @@ export class WeatherService implements IWeatherService<Weather>{
     }
     
     getWeather(city: string, lat: string, long: string): Observable<Weather> {
-        console.log('this is from outside')
         return this.http.get<Weather>(`/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&exclude=minutely`)
             .pipe(
                 map((weather: any) => 
@@ -49,4 +48,5 @@ export class WeatherService implements IWeatherService<Weather>{
                     }))
             );
     }
+    
 }
