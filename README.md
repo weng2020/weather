@@ -55,5 +55,6 @@ import the module with config
  1. Make responsive
  2. Add animations
  3. Add loading screen
- 4. Use NgRx alternative(extra)
- 5. Clean code/Refactor
+ 4. Add Error handling
+ 5. Use NgRx alternative(extra)
+ 6. Clean code/Refactor
