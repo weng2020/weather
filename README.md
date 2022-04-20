@@ -1,28 +1,27 @@
 # Weather
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
+This app is for demo only 
 
-## Development server
+## The Task
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Using https://openweathermap.org/api  build a singular page web app which shows the current weather in the following cities: London, Paris, New York, Los Angeles, and Tokyo.
 
-## Code scaffolding
+Each city should display:
+Temperature
+Humidity
+Chance of Rain
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Requirements
 
-## Build
+Create an online source control (Github, Bitbucket, etc.) project where this code will be hosted.
+Create an Angular app using the Angular CLI.
+Focus on code design - think in terms of adaptability and extensibility.
+Handle errors appropriately.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# weather
+## TODOS - Not yet done, partial commit
+ 1. Make responsive
+ 2. Add animations
+ 3. Add loading screen
+ 4. Use NgRx alternative(extra)
+ 5. Clean code/Refactor
