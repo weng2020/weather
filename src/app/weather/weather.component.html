@@ -1,0 +1,18 @@
+<div class="weather-widget">
+    <button class="prev-btn" prevBtn><</button>
+        <weather-item [data]="data" *ngFor="let data of weathers$ | async"></weather-item>
+    <button class="next-btn " nextBtn>></button>
+</div>
+
+<div class="weather-forecast card">
+    <div class="weather-details">
+        <span class="date">{{ selectedCity.dt | date }}</span>
+        <div class="city-name">{{ selectedCity?.city }}</div>
+        <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
+        <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
+        <div class="humidity">{{ selectedCity?.humidity }}</div>
+    </div>
+    <div class="daily-forecast">
+
+    </div>
+</div>

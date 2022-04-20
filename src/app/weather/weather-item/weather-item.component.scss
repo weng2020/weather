@@ -1,0 +1,16 @@
+
+.weather-item{
+    min-width: 240px;
+    height: 140px;
+    transition: 300ms ease-in;
+    padding: 20px;
+    box-sizing: border-box;
+
+    .city-name{
+        font-size: 1em;
+    }
+
+    .temperature{
+        font-size: 2.5em;
+    }
+}
