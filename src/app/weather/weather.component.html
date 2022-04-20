@@ -1,67 +1,37 @@
-<div class="weather-widget">
-    <button class="prev-btn" prevBtn><</button>
-        <weather-item [data]="data" *ngFor="let data of weathers$ | async"></weather-item>
-    <button class="next-btn " nextBtn>></button>
-</div>
-
-<div class="weather-forecast card">
-    <div class="weather-details">
-        <span class="date">{{ selectedCity.dt | date }}</span>
-        <div class="city-name">{{ selectedCity?.city }}</div>
-        <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
-        <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
-        <weather-icon [height]="200" [width]="200" [icon]="selectedCity?.weather.icon"></weather-icon>
-        <div class="weather-desc">
-            <div class="fld">
-                <span class="lbl">Humidity</span>
-                <span class="lbl-value">{{ selectedCity?.humidity }}%</span>
+<ng-container *ngIf="(weathers$ | async)?.length > 0">
+    <div class="weather-widget">
+        <button class="prev-btn" prevBtn><</button>
+            <weather-item [data]="data" *ngFor="let data of weathers$ | async" (click)="setSelected(data)"></weather-item>
+        <button class="next-btn " nextBtn>></button>
+    </div>
+    
+    <div class="weather-forecast card">
+        <div class="weather-details">
+            <span class="date">{{ selectedCity.dt | date }}</span>
+            <div class="city-name">{{ selectedCity?.city }}</div>
+            <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
+            <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
+            <weather-icon [height]="200" [width]="200" [icon]="selectedCity?.weather.icon"></weather-icon>
+            <div class="weather-desc">
+                <div class="fld">
+                    <span class="lbl">Humidity</span>
+                    <span class="lbl-value">{{ selectedCity?.humidity }}%</span>
+                </div>
+                <div class="fld">
+                    <span class="lbl">Weather</span>
+                    <span class="lbl-value">{{ selectedCity?.weather.desc }}</span>
+                </div>
             </div>
-            <div class="fld">
-                <span class="lbl">Weather</span>
-                <span class="lbl-value">{{ selectedCity?.weather.desc }}</span>
+        </div>
+        <div class="daily-forecast" *ngIf="selectedCity">
+            <div class="day-forecast" *ngFor="let forecast of selectedCity.daily">
+                <div class="day">{{ forecast.dt | date: 'EEEE' }}</div>
+                <div class="date">{{ forecast.dt | date: 'MMMM dd' }}</div>
+                <weather-icon [height]="150" [width]="150" [icon]="forecast.weather.icon"></weather-icon>
+                <div class="weather-desc">{{ forecast?.weather.desc }}</div>
+                <div class="temperature">{{ forecast?.temperature | temperature }}</div>
+                <span class="pop">Chance of rain {{ forecast.pop | percent }}</span>
             </div>
         </div>
     </div>
-    <div class="daily-forecast">
-        <div class="day-forecast">
-            <div class="day">{{ selectedCity.dt | date: 'EEEE' }}</div>
-            <div class="date">{{ selectedCity.dt | date: 'MMMM dd' }}</div>
-            <weather-icon [height]="150" [width]="150"></weather-icon>
-            <div class="weather-desc">Clear sky</div>
-            <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
-            <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
-        </div>
-        <div class="day-forecast">
-            <div class="day">{{ selectedCity.dt | date: 'EEEE' }}</div>
-            <div class="date">{{ selectedCity.dt | date: 'MMMM dd' }}</div>
-            <weather-icon [height]="150" [width]="150"></weather-icon>
-            <div class="weather-desc">Clear sky</div>
-            <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
-            <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
-        </div>
-        <div class="day-forecast">
-            <div class="day">{{ selectedCity.dt | date: 'EEEE' }}</div>
-            <div class="date">{{ selectedCity.dt | date: 'MMMM dd' }}</div>
-            <weather-icon [height]="150" [width]="150"></weather-icon>
-            <div class="weather-desc">Clear sky</div>
-            <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
-            <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
-        </div>
-        <div class="day-forecast">
-            <div class="day">{{ selectedCity.dt | date: 'EEEE' }}</div>
-            <div class="date">{{ selectedCity.dt | date: 'MMMM dd' }}</div>
-            <weather-icon [height]="150" [width]="150"></weather-icon>
-            <div class="weather-desc">Clear sky</div>
-            <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
-            <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
-        </div>
-        <div class="day-forecast">
-            <div class="day">{{ selectedCity.dt | date: 'EEEE' }}</div>
-            <div class="date">{{ selectedCity.dt | date: 'MMMM dd' }}</div>
-            <weather-icon [height]="150" [width]="150" [icon]="selectedCity?.weather.icon"></weather-icon>
-            <div class="weather-desc">{{ selectedCity?.weather.desc }}</div>
-            <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
-            <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
-        </div>
-    </div>
-</div>
+</ng-container>

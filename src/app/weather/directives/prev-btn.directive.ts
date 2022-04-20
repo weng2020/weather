@@ -11,19 +11,12 @@ export class PrevButtonDirective{
         const children = this.el.nativeElement.parentElement.getElementsByTagName('weather-item');
         const child = children[0];    
         
-        const t = this.renderer.appendChild(this.el.nativeElement.parentElement, child); 
-        for(let i = 0; i < children.length; i++){
-            this.animate(children[i])
-        }
-        console.log(t)
-        // this.renderer.insertBefore(this.el.nativeElement.parentElement, child, children[children.length - 1]);  
-
+        this.renderer.appendChild(this.el.nativeElement.parentElement, child); 
    
     }
 
     constructor(private el: ElementRef<HTMLDivElement>, private renderer: Renderer2,
         private animationBuilder: AnimationBuilder){
-        console.log(this.el.nativeElement.parentElement.getElementsByTagName('weather-item'))
     }
 
     getSlideInAnimation(el): AnimationMetadata[] {
@@ -34,8 +27,5 @@ export class PrevButtonDirective{
         const factory = this.animationBuilder.build(this.getSlideInAnimation(el));
         this.player = factory.create(el);
         this.player.play();
-        // this.player.onDone(() => {
-        //   this.player.destroy();
-        // });
     }
 }

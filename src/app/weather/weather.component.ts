@@ -1,5 +1,6 @@
 import { Component, Inject, InjectionToken, OnInit, Optional } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { data } from '../services/weather.mock-data';
 import { IWeatherService } from './models/weather-service.model';
 import { Weather, WeatherConfig } from './models/weather.model';
@@ -29,14 +30,23 @@ export class WeatherComponent implements OnInit {
 
     const weatherParams = Object.keys(this.config.data).map(key => ({ name: key, ...this.config.data[key] }));
     
-    // this.weathers$ = forkJoin(weatherParams.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)));
-    this.weathers$ = of(data);
+    this.weathers$ = forkJoin(weatherParams.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)))
+      .pipe(tap(w => {
+        this.selectedCity = w[0];
+        console.log(w)
+      }));
 
-    this.weathers$.subscribe(res => {
-      console.log(res)
-    })
-    this.selectedCity = data[0];
+    // Sometimes the request limit is maxed so we use mock data
+    // this.weathers$ = of(data);
+    // this.weathers$.subscribe(res => {
+    //   console.log(res)
+    //   this.selectedCity = res[0];
+    // });
     
+  }
+
+  setSelected(weather: Weather): void{
+    this.selectedCity = weather;
   }
 
 }
