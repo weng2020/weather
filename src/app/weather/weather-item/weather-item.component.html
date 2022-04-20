@@ -4,7 +4,7 @@
         <div class="temperature">{{ data.temperature | temperature }}</div>
     </div>
     <div class="weather-details">
-        <weather-icon></weather-icon>
-        <span class="weather-desc">clear sky</span>
+        <weather-icon [icon]="data.weather.icon"></weather-icon>
+        <span class="weather-desc">{{ data.weather.desc }}</span>
     </div>
 </div>

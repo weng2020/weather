@@ -10,7 +10,7 @@
         <div class="city-name">{{ selectedCity?.city }}</div>
         <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
         <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
-        <weather-icon [height]="200" [width]="200"></weather-icon>
+        <weather-icon [height]="200" [width]="200" [icon]="selectedCity?.weather.icon"></weather-icon>
         <div class="weather-desc">
             <div class="fld">
                 <span class="lbl">Humidity</span>
@@ -18,7 +18,7 @@
             </div>
             <div class="fld">
                 <span class="lbl">Weather</span>
-                <span class="lbl-value">light rain</span>
+                <span class="lbl-value">{{ selectedCity?.weather.desc }}</span>
             </div>
         </div>
     </div>
@@ -58,8 +58,8 @@
         <div class="day-forecast">
             <div class="day">{{ selectedCity.dt | date: 'EEEE' }}</div>
             <div class="date">{{ selectedCity.dt | date: 'MMMM dd' }}</div>
-            <weather-icon [height]="150" [width]="150"></weather-icon>
-            <div class="weather-desc">Clear sky</div>
+            <weather-icon [height]="150" [width]="150" [icon]="selectedCity?.weather.icon"></weather-icon>
+            <div class="weather-desc">{{ selectedCity?.weather.desc }}</div>
             <div class="temperature">{{ selectedCity?.temperature | temperature }}</div>
             <span class="pop">Chance of rain {{ selectedCity.pop | percent }}</span>
         </div>
