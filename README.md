@@ -21,7 +21,8 @@ Handle errors appropriately.
 ## Usage
 import the module with config
 
- ``` WeatherConfigModule.forRoot({
+ ```typescript 
+ WeatherConfigModule.forRoot({
     apiKey: {{ YOUR APPID in the openweathermap }},
     url: 'https://api.openweathermap.org/data/2.5',
     data: {
