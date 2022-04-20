@@ -11,18 +11,19 @@ export class WeatherHttpInterceptpor implements HttpInterceptor{
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if( this.isWeatherRequest(req) ){
+        if( this.isOpenWeatherMapRequest(req) ){
 
             // If the request is for weather forecast then add the parameter appid in the headers
             req = req.clone({
+                url: this.config.url + req.url,
                 params: req.params.set('appid', this.config.apiKey)
             });
         }
         return next.handle(req);
     }
 
-    isWeatherRequest(req: HttpRequest<any>): boolean{
-        return req.url.indexOf(this.config.url) != -1;
+    isOpenWeatherMapRequest(req: HttpRequest<any>): boolean{
+        return req.url.indexOf('/data/2.5') != -1;
     }
 
 }

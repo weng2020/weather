@@ -3,7 +3,7 @@ import { WeatherConfig } from "../weather/models/weather.model";
 export const weatherConfig: WeatherConfig = 
 {
     apiKey: '620a330ce7d2c438100e9a3556009a10',
-    url: 'https://api.openweathermap.org/data/2.5',
+    url: 'https://api.openweathermap.org',
     data: {
         'London': {  
             long: '-0.1257',
