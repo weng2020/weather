@@ -21,7 +21,16 @@ export class OpenWeatherMapService implements IWeatherService<Weather>{
         return this.http.get<Weather>(`/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&exclude=minutely`)
             .pipe(
                 map((weather: any) => 
-                    new Weather({ 
+                   {
+                       if( city === 'Philippines' ){
+                           
+                             const hours = new Date(weather.current.dt * 1000).setUTCDate(weather.timezone_offset);
+                             console.log(hours)
+                             const t = new Date((weather.current.dt + weather.timezone_offset) * 1000).getHours();
+                             console.log(new Date(weather.current.dt).toLocaleString(weather.timezone))
+                       }
+                       console.log(weather)
+                       return  new Weather({ 
                         city: city, 
                         temperature: weather.current.temp, 
                         humidity: weather.current.humidity, 
@@ -45,7 +54,8 @@ export class OpenWeatherMapService implements IWeatherService<Weather>{
                                     icon: WeatherUtil.getIcon(d.weather[0].id, d.dt)
                                 }
                         })) 
-                    }))
+                    })
+                   })
             );
     }
     

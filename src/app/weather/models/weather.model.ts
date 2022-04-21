@@ -7,7 +7,7 @@ export interface WeatherConfig{
     url?: string;
     data?: WParams; 
     // endpoints needed to check in the httpinterceptor to determine
-    //  if the httprequest is requesting from a weather api
+    //  if the httprequest is coming from a weather api call
     allowedEndpoints?: string[];  
 }
 

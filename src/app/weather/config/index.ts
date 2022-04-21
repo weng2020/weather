@@ -6,5 +6,8 @@ export const weatherAppConfig: WeatherConfig =
     url: 'https://api.openweathermap.org',
     allowedEndpoints: [
         '/data/2.5/onecall' 
-    ]
+    ],
+    data: {
+        
+    }
 };

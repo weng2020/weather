@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { WeatherService } from "../services/weather.service";
-import { catchError } from "rxjs/operators";
+import { catchError, finalize } from "rxjs/operators";
 
 @Injectable()
 export class WeatherHttpInterceptpor implements HttpInterceptor{
 
+    private countReq = 0;
+    
     /**
      * constructor
      * @param {WeatherService} weatherConfigService 
@@ -15,6 +17,8 @@ export class WeatherHttpInterceptpor implements HttpInterceptor{
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+        this.countReq++;
+        
         if( this.isWeatherRequest(req) ){
             const config = this.weatherConfigService.config;
 
@@ -25,23 +29,23 @@ export class WeatherHttpInterceptpor implements HttpInterceptor{
             });
         }
         return next.handle(req).pipe(
+            finalize(() => {
+                this.countReq--;
+                if (this.countReq<=0) {
+                  this.countReq = 0;
+                }
+              }),
             catchError(err => {
-                console.log(err)
-                // Write error handler later
-                this.handleError(err.error);
-                return of(err.error.message || err.error);
+                if( err.error.hasOwnProperty('cod') && err.error['cod'] != 200 ){
+                    this.weatherConfigService.setErrorMessage(err.error.message);
+                }
+                return throwError(err);
             })
         );
     }
 
     isWeatherRequest(req: HttpRequest<any>): boolean{
         return this.weatherConfigService.config.allowedEndpoints.some(u => req.url.indexOf(u) != -1);
-    }
-
-    handleError(err): void{
-        if( err.hasOwnProperty('cod') && err['cod'] != 200 ){
-            this.weatherConfigService.setErrorMessage(err.message);
-        }
     }
 
 }
