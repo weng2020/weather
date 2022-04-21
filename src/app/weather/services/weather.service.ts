@@ -5,8 +5,9 @@ import * as _ from 'lodash';
 import { weatherAppConfig } from "../config";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
 import { IWeatherService } from "../models/weather-service.model";
-import { exhaustMap, finalize, tap } from "rxjs/operators";
+import { catchError, exhaustMap, finalize, map, share, shareReplay, startWith, tap } from "rxjs/operators";
 import { Subject } from "rxjs";
+import { data } from "src/app/services/weather.mock-data";
 
 @Injectable()
 export class WeatherService{
@@ -59,12 +60,14 @@ export class WeatherService{
 
     private _init(): void{
         this.weathers$ = this.valueChange$.asObservable().pipe(
-            exhaustMap(data => {
-                return forkJoin(data.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)))
+            exhaustMap(weathers => {
+                return forkJoin(weathers.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)))
                     .pipe(
+                        startWith([]),
                         tap(weathers => this.selected$.next(weathers[0] as Weather)),
                         finalize(() => this.loading$.next(false))
                     );
-        }));
+        }),
+        shareReplay(1));
     }
 }

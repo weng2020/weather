@@ -165,6 +165,35 @@
     box-shadow: var(--shadow);
 }
 
+.no-data-wrapper{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .no-data{
+        width: 300px;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+        justify-content: center;
+
+        &-title{
+            margin: 0;
+        }
+
+        &-title, &-message{
+            font-weight: 800;
+        }
+
+        &-message{
+            opacity: 0.4;
+        }
+    }
+}
+
 weather-item:hover{
     cursor: pointer;
     transform: scale(1.1);

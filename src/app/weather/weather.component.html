@@ -38,3 +38,11 @@
 <div class="loading-wrapper" *ngIf="loading$ | async">
     <mat-spinner [diameter]="40"></mat-spinner>
 </div>
+
+<div class="no-data-wrapper" *ngIf="(weathers$ | async)?.length === 0 && !(loading$ | async)">
+    <div class="no-data card">
+        <img src="assets/images/no-results/confused_face.svg" width="200" alt="nothing to display">
+        <h1 class="no-data-title">Ooops!</h1>
+        <p class="no-data-message">Unable to retrieve data</p>
+    </div>
+</div>
