@@ -1,4 +1,4 @@
-interface WParams {
+export interface WParams {
     [key: string]: { lat: string, long: string };
   }
 

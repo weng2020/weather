@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@angular/core";
-import { Weather, WeatherConfig } from "../models/weather.model";
+import { Weather, WeatherConfig, WParams } from "../models/weather.model";
 import { WEATHER_CONFIG, WEATHER_SERVICE } from "../weather.component";
 import * as _ from 'lodash';
 import { weatherAppConfig } from "../config";
@@ -13,7 +13,7 @@ export class WeatherService{
     config: WeatherConfig;
     valueChange$: BehaviorSubject<any> = new BehaviorSubject([]);
     weathers$: Observable<any[]>;
-    errorMessage$: Observable<string>;
+    errorMessage$: BehaviorSubject<string> = new BehaviorSubject(null);
     selected$: BehaviorSubject<Weather> = new BehaviorSubject(null);
     loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
    
@@ -31,20 +31,24 @@ export class WeatherService{
     
     }
 
-    setValue(val): void{
+    setValue(val: WParams): void{
         const keys = Object.keys(val);
         const weatherParams = keys.map(key => ({ name: key, ...val[key] }));
         this.valueChange$.next(weatherParams);
+        this.loading$.next(true);
     }
 
     setSelected(weather: Weather): void{
         this.selected$.next(weather);
     }
 
+    setErrorMessage(message: string): void{
+        this.errorMessage$.next(message);
+    }
+
     private _init(): void{
         this.weathers$ = this.valueChange$.pipe(
             exhaustMap(data => {
-                this.loading$.next(true);
                 return forkJoin(data.map(loc => this.service.getWeather(loc.name, loc.lat, loc.long)))
                     .pipe(
                         delay(3000),

@@ -26,6 +26,17 @@ export class WeatherComponent implements OnInit {
     this.weathers$ =this.weatherService.weathers$;
     this.selected$ = this.weatherService.selected$;
     this.loading$ = this.weatherService.loading$;
+
+    this.weatherService.errorMessage$.subscribe(res => console.log(res))
+
+    setTimeout(() => {
+      this.weatherService.setValue({
+        "Philippines": {
+          lat: '12.880',
+          long: '122'
+        }
+      })
+    }, 5000);
     // If service is available
     // if( this.service ){
     //   const keys = Object.keys(this.config.data);
