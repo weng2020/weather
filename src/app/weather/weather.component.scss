@@ -145,6 +145,26 @@
     }
 }
 
+.loading-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 100px;
+    width: 100px;
+    background-color: #fff;
+    border-radius: var(--borderRadius);
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
 weather-item:hover{
     cursor: pointer;
     transform: scale(1.1);

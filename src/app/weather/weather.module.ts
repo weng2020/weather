@@ -9,6 +9,7 @@ import { WeatherIconComponent } from "./weather-icon/weather-icon.component";
 import { WeatherItemComponent } from "./weather-item/weather-item.component";
 import { WeatherComponent } from "./weather.component";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ErrorDialogComponent } from "./dialog/error-dialog/error-dialog.component";
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ErrorDialogComponent } from "./dialog/error-dialog/error-dialog.compone
     imports: [
         CommonModule,
         HttpClientModule,
-        MatDialogModule
+        MatDialogModule,
+        MatProgressSpinnerModule
     ],
     providers: [
         {

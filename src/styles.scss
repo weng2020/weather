@@ -39,6 +39,7 @@ $weather-theme: mat.define-light-theme((
     --borderRadius: 20px;
     --color-1: #6266d3;
     --color-2: #999de8;
+    --shadow: 0 8px 12px rgba(0,0,0,.25);
 }
 
 html, body { height: 100%; }
@@ -84,5 +85,5 @@ body{
     background-color: #fff;
     overflow: hidden;
     border-radius: var(--borderRadius);
-    box-shadow: 0 8px 12px rgba(0,0,0,.25);
+    box-shadow: var(--shadow);
 }

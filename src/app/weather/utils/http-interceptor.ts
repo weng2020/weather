@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Observable, of, throwError } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { WeatherService } from "../services/weather.service";
-import { catchError, finalize } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 
 @Injectable()
 export class WeatherHttpInterceptpor implements HttpInterceptor{
-
-    private countReq = 0;
     
     /**
      * constructor
@@ -16,8 +14,6 @@ export class WeatherHttpInterceptpor implements HttpInterceptor{
     constructor(private weatherConfigService: WeatherService){}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        this.countReq++;
         
         if( this.isWeatherRequest(req) ){
             const config = this.weatherConfigService.config;
@@ -29,12 +25,6 @@ export class WeatherHttpInterceptpor implements HttpInterceptor{
             });
         }
         return next.handle(req).pipe(
-            finalize(() => {
-                this.countReq--;
-                if (this.countReq<=0) {
-                  this.countReq = 0;
-                }
-              }),
             catchError(err => {
                 if( err.error.hasOwnProperty('cod') && err.error['cod'] != 200 ){
                     this.weatherConfigService.setErrorMessage(err.error.message);
