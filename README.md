@@ -1,4 +1,4 @@
-# Weather App Exercise
+# Weather App
 
 This app is for demo only 
 
@@ -19,12 +19,11 @@ Focus on code design - think in terms of adaptability and extensibility.
 Handle errors appropriately.
 
 ## Usage
-import the module with config
+import the module with config in the app.module.ts
 
  ```typescript 
  WeatherConfigModule.forRoot({
-    apiKey: {{ YOUR APPID in the openweathermap }},
-    url: 'https://api.openweathermap.org/data/2.5',
+    apiKey: {{ YOUR APP_ID in the openweathermap.org }},
     data: {
         'London': {  
             long: '-0.1257',
@@ -50,11 +49,4 @@ import the module with config
  })
  ```
 
-
-## TODOS - Not yet done, partial commit
- 1. Make responsive
- 2. Add animations
- 3. Add loading screen
- 4. Add Error handling
- 5. Use NgRx alternative(extra)
- 6. Clean code/Refactor
+By default openweathermap.org is used to get weather data but the app is built to be configurable with additional config
